@@ -14,7 +14,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"pvc\testingTraits\\": "src",
+			"pvc\\testingTraits\\": "src",
 			"tests\\": "tests"
 		}
 	},
