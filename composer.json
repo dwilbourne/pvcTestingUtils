@@ -19,16 +19,6 @@
 		}
 	},
 	"require": {
-		"ext-curl": "*",
-		"ext-intl": "*",
-		"ext-json": "*",
-		"ext-iconv": "*",
-		"ext-gettext": "*",
-		"ext-dom": "*",
-		"ext-libxml": "*",
-		"ext-simplexml": "*",
-		"ext-mbstring": "*",
-		"ext-tidy": "*",
 		"mockery/mockery": "dev-master"
 	},
 	"require-dev": {
