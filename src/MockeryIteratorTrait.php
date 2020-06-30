@@ -7,7 +7,6 @@
 
 namespace pvc\testingTraits;
 
-
 use Mockery\MockInterface;
 use stdClass;
 
@@ -15,22 +14,52 @@ use stdClass;
  * Trait MockIteratorTrait.  Also implements Countable.
  */
 
-trait MockeryIteratorTrait {
+trait MockeryIteratorTrait
+{
 
-    public function mockIterator(MockInterface $mock, array $items) {
-
+    /**
+     * mockIterator
+     * @param MockInterface $mock
+     * @param array $items
+     * @return MockInterface
+     */
+    public function mockIterator(MockInterface $mock, array $items): MockInterface
+    {
         $iteratorData = new stdClass();
         $iteratorData->array = $items;
         $iteratorData->position = 0;
 
-        $mock->shouldReceive('rewind')  ->withNoArgs()->andReturnUsing(function() use ($iteratorData) { $iteratorData->position = 0; });
-        $mock->shouldReceive('current') ->withNoArgs()->andReturnUsing(function() use ($iteratorData) { return $iteratorData->array[$iteratorData->position]; });
-        $mock->shouldReceive('key')     ->withNoArgs()->andReturnUsing(function() use ($iteratorData) { return $iteratorData->position; });
-        $mock->shouldReceive('next')    ->withNoArgs()->andReturnUsing(function() use ($iteratorData) { $iteratorData->position++; });
-        $mock->shouldReceive('valid')   ->withNoArgs()->andReturnUsing(function() use ($iteratorData) { return isset($iteratorData->array[$iteratorData->position]); });
-        $mock->shouldReceive('count')   ->withNoArgs()->andReturnUsing(function() use ($iteratorData) { return sizeof($iteratorData->array); });
+        $mock->shouldReceive('rewind')->withNoArgs()->andReturnUsing(
+            function () use ($iteratorData) {
+                $iteratorData->position = 0;
+            }
+        );
+        $mock->shouldReceive('current')->withNoArgs()->andReturnUsing(
+            function () use ($iteratorData) {
+                return $iteratorData->array[$iteratorData->position];
+            }
+        );
+        $mock->shouldReceive('key')->withNoArgs()->andReturnUsing(
+            function () use ($iteratorData) {
+                return $iteratorData->position;
+            }
+        );
+        $mock->shouldReceive('next')->withNoArgs()->andReturnUsing(
+            function () use ($iteratorData) {
+                $iteratorData->position++;
+            }
+        );
+        $mock->shouldReceive('valid')->withNoArgs()->andReturnUsing(
+            function () use ($iteratorData) {
+                return isset($iteratorData->array[$iteratorData->position]);
+            }
+        );
+        $mock->shouldReceive('count')->withNoArgs()->andReturnUsing(
+            function () use ($iteratorData) {
+                return sizeof($iteratorData->array);
+            }
+        );
 
         return $mock;
     }
-
 }

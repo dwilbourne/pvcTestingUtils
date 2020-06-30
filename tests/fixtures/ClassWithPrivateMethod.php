@@ -6,26 +6,28 @@
 
 namespace tests\fixtures;
 
-
 /**
  * Class ClassWithPrivateMethod
  * @package tests\fixtures
  */
 
-class ClassWithPrivateMethod {
+class ClassWithPrivateMethod
+{
 
-    protected $result;
+    protected int $result;
 
-    function setResult(int $n) : void {
+    public function setResult(int $n) : void
+    {
         $this->result = $n;
     }
 
-    function getResult() : int {
+    public function getResult() : int
+    {
         return $this->result;
     }
 
-    private function doubleResult() {
+    private function doubleResult() : void
+    {
         $this->result *= 2;
     }
-
 }

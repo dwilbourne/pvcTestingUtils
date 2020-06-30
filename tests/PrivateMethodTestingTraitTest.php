@@ -10,11 +10,13 @@ use PHPUnit\Framework\TestCase;
 use pvc\testingTraits\PrivateMethodTestingTrait;
 use tests\fixtures\ClassWithPrivateMethod;
 
-class PrivateMethodTestingTraitTest extends TestCase {
+class PrivateMethodTestingTraitTest extends TestCase
+{
 
     use PrivateMethodTestingTrait;
 
-    public function testPrivateMethod() {
+    public function testPrivateMethod() : void
+    {
 
         $class = new ClassWithPrivateMethod();
         $class->setResult(2);

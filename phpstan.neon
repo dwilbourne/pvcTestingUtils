@@ -1,0 +1,16 @@
+parameters:
+	level: 8
+	paths:
+		- src
+		- tests
+
+	checkMissingIterableValueType: false
+
+	ignoreErrors:
+
+	    -
+	        message: '#Call to an undefined method Mockery.*#'
+	        path: tests/*
+	    -
+	        message: '#Mockery\\LegacyMockInterface given\.$#'
+	        path: tests/*

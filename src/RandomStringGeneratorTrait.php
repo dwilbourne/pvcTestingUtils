@@ -7,21 +7,23 @@
 
 namespace pvc\testingTraits;
 
-
 use RangeException;
 
 /**
  * Trait RandomStringGeneratorTrait
  */
-trait RandomStringGeneratorTrait {
+trait RandomStringGeneratorTrait
+{
 
     protected string $keySpace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
-    public function getKeyspace() : string {
+    public function getKeyspace() : string
+    {
         return $this->keySpace;
     }
 
-    public function setKeyspace(string $ks) : void {
+    public function setKeyspace(string $ks) : void
+    {
         $this->keySpace = $ks;
     }
 
@@ -32,7 +34,8 @@ trait RandomStringGeneratorTrait {
      * @return string
      */
 
-    public function randomString(int $length = 64): string {
+    public function randomString(int $length = 64): string
+    {
         if ($length < 1) {
             throw new RangeException("random_str error: Length must be a positive integer");
         }
@@ -43,5 +46,4 @@ trait RandomStringGeneratorTrait {
         }
         return implode('', $pieces);
     }
-
 }

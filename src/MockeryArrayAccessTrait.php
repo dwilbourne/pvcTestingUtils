@@ -7,42 +7,52 @@
 
 namespace pvc\testingTraits;
 
-use Mockery;
+use Mockery\MockInterface;
 use stdClass;
 
 /**
  * Trait MockeryArrayAccessTrait
  */
-trait MockeryArrayAccessTrait {
+trait MockeryArrayAccessTrait
+{
 
-    public function mockArrayAccess(Mockery\MockInterface $mock, array $items) {
-
+    /**
+     * mockArrayAccess
+     * @param MockInterface $mock
+     * @param array $items
+     * @return MockInterface
+     */
+    public function mockArrayAccess(MockInterface $mock, array $items): MockInterface
+    {
         $arrayAccessData = new stdClass();
 
         foreach ($items as $key => $value) {
             $arrayAccessData->array[$key] = $value;
         }
 
-        $arrayIndexValidator = function () {
-            return (Mockery::type('int') || Mockery::type('string'));
-        };
+        $mock->shouldReceive('offsetExists')->andReturnUsing(
+            function ($arg) use ($arrayAccessData) {
+                return isset($arrayAccessData->array[$arg]);
+            }
+        );
 
-        $mock->shouldReceive('offsetExists')->withArgs($arrayIndexValidator)
-             ->andReturnUsing(function ($arg) use ($arrayAccessData) {
-                 return isset($arrayAccessData->array[$arg]);
-             });
-        $mock->shouldReceive('offsetGet')->withArgs($arrayIndexValidator)
-             ->andReturnUsing(function ($arg) use ($arrayAccessData) {
-                 return $arrayAccessData->array[$arg];
-             });
-        $mock->shouldReceive('offsetSet')->withArgs($arrayIndexValidator)
-             ->andReturnUsing(function ($arg, $value) use ($arrayAccessData) {
-                 return $arrayAccessData->array[$arg] = $value;
-             });
-        $mock->shouldReceive('offsetUnset')->withArgs($arrayIndexValidator)
-             ->andReturnUsing(function ($arg) use ($arrayAccessData) {
-                 unset($arrayAccessData->array[$arg]);
-             });
+        $mock->shouldReceive('offsetGet')->andReturnUsing(
+            function ($arg) use ($arrayAccessData) {
+                return $arrayAccessData->array[$arg];
+            }
+        );
+
+        $mock->shouldReceive('offsetSet')->andReturnUsing(
+            function ($arg, $value) use ($arrayAccessData) {
+                return $arrayAccessData->array[$arg] = $value;
+            }
+        );
+
+        $mock->shouldReceive('offsetUnset')->andReturnUsing(
+            function ($arg) use ($arrayAccessData) {
+                unset($arrayAccessData->array[$arg]);
+            }
+        );
 
         return $mock;
     }

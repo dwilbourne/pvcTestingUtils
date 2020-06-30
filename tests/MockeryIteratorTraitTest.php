@@ -7,27 +7,32 @@
 
 namespace tests;
 
+use Mockery;
 use PHPUnit\Framework\TestCase;
-use Mockery as m;
 use pvc\testingTraits\MockeryIteratorTrait;
 
 /**
- * Class MockeryHardDependencyTest
+ * Class MockeryIteratorTraitTest
+ * @package tests
  */
-class MockeryIteratorTraitTest extends Testcase {
+class MockeryIteratorTraitTest extends Testcase
+{
 
     use MockeryIteratorTrait;
 
+    /** @phpstan-ignore-next-line */
     protected $mock;
-    protected $testArray;
+    protected array $testArray;
 
-    function setUp() : void {
-        $this->mock = m::mock('\StdClass', '\Iterator');
+    public function setUp() : void
+    {
+        $this->mock = Mockery::mock('\StdClass', '\Iterator');
         $this->testArray = array('foo', 'bar', 'baz');
         $this->mock = $this->mockIterator($this->mock, $this->testArray);
     }
 
-    function testIteration() {
+    public function testIteration() : void
+    {
 
         // if you have a mocked object that needs to implement the iterator interface,
         // you can use the function mockIterator to add the proper expectations
@@ -35,17 +40,17 @@ class MockeryIteratorTraitTest extends Testcase {
         $arrayIndices = [];
         $arrayValues = [];
 
-        foreach($this->mock as $index => $value) {
+        foreach ($this->mock as $index => $value) {
             $arrayIndices[] = $index;
             $arrayValues[] = $value;
         }
 
         $this->assertSame(array(0, 1, 2), $arrayIndices);
         $this->assertSame($this->testArray, $arrayValues);
-
     }
 
-    function testIteratorMethods() {
+    public function testIteratorMethods() : void
+    {
 
         $this->assertTrue($this->mock->valid());
         $this->assertEquals(0, $this->mock->key());
@@ -65,8 +70,5 @@ class MockeryIteratorTraitTest extends Testcase {
         $this->assertFalse($this->mock->valid());
         $this->mock->rewind();
         $this->assertEquals(0, $this->mock->key());
-
     }
-
-
 }
