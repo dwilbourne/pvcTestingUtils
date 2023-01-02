@@ -5,7 +5,7 @@
  * @version: 1.0
  */
 
-namespace pvc\testingTraits;
+namespace pvc\testingTraits\mockery;
 
 use Mockery\MockInterface;
 use stdClass;
@@ -56,7 +56,7 @@ trait MockeryIteratorTrait
         );
         $mock->shouldReceive('count')->withNoArgs()->andReturnUsing(
             function () use ($iteratorData) {
-                return sizeof($iteratorData->array);
+                return count($iteratorData->array);
             }
         );
 

@@ -1,32 +1,28 @@
 <?php
+
+declare (strict_types=1);
 /**
- * @package: pvc
  * @author: Doug Wilbourne (dougwilbourne@gmail.com)
- * @version: 1.0
  */
 
-namespace tests;
+namespace tests\phpunit;
 
-use Mockery;
+use Iterator;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use pvc\testingTraits\MockeryIteratorTrait;
+use pvc\testingTraits\phpunit\PhpunitIteratorTrait;
 
-/**
- * Class MockeryIteratorTraitTest
- * @package tests
- */
-class MockeryIteratorTraitTest extends Testcase
+class PhpunitIteratorTraitTest extends TestCase
 {
+    use PhpunitIteratorTrait;
 
-    use MockeryIteratorTrait;
-
-    /** @phpstan-ignore-next-line */
-    protected $mock;
+    protected MockObject|Iterator $mock;
     protected array $testArray;
 
     public function setUp() : void
     {
-        $this->mock = Mockery::mock('\StdClass', '\Iterator');
+        // $this->mock = $this->getMockBuilder(['\StdClass', '\Iterator'])->getMock();
+	    $this->mock = $this->createMock(Iterator::class);
         $this->testArray = array('foo', 'bar', 'baz');
         $this->mock = $this->mockIterator($this->mock, $this->testArray);
     }
@@ -63,8 +59,6 @@ class MockeryIteratorTraitTest extends Testcase
         $this->mock->next();
         $this->assertEquals(2, $this->mock->key());
         $this->assertEquals('baz', $this->mock->current());
-
-        $this->assertEquals(3, $this->mock->count());
 
         $this->mock->next();
         $this->assertFalse($this->mock->valid());

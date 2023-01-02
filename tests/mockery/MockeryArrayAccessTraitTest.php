@@ -5,11 +5,11 @@
  * @version: 1.0
  */
 
-namespace tests;
+namespace tests\mockery;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use pvc\testingTraits\MockeryArrayAccessTrait;
+use pvc\testingTraits\mockery\MockeryArrayAccessTrait;
 
 class MockeryArrayAccessTraitTest extends Testcase
 {

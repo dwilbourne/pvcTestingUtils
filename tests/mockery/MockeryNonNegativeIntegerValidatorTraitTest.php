@@ -4,10 +4,10 @@
  * @version 1.0
  */
 
-namespace tests;
+namespace tests\mockery;
 
 use PHPUnit\Framework\TestCase;
-use pvc\testingTraits\MockeryNonNegativeIntegerValidatorTrait;
+use pvc\testingTraits\mockery\MockeryNonNegativeIntegerValidatorTrait;
 
 class MockeryNonNegativeIntegerValidatorTraitTest extends TestCase
 {
