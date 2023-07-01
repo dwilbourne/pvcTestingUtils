@@ -4,17 +4,21 @@
  * @version 1.0
  */
 
-namespace tests\mockery;
+namespace pvcTests\testingutils\testingTraits\mockery;
 
 use PHPUnit\Framework\TestCase;
-use pvc\testingTraits\mockery\MockeryNonNegativeIntegerValidatorTrait;
+use pvc\testingutils\testingTraits\mockery\MockeryNonNegativeIntegerValidatorTrait;
 
 class MockeryNonNegativeIntegerValidatorTraitTest extends TestCase
 {
 
     use MockeryNonNegativeIntegerValidatorTrait;
 
-    public function testIntegerValidatorTrait() : void
+    /**
+     * testIntegerValidatorTrait
+     * @covers MockeryNonNegativeIntegerValidatorTrait::makeMockValidator
+     */
+    public function testIntegerValidatorTrait(): void
     {
         $v = $this->makeMockValidator();
         self::assertTrue($v->validate(4));

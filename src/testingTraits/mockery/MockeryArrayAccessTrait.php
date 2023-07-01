@@ -5,7 +5,7 @@
  * @version: 1.0
  */
 
-namespace pvc\testingTraits\mockery;
+namespace pvc\testingutils\testingTraits\mockery;
 
 use Mockery\MockInterface;
 use stdClass;

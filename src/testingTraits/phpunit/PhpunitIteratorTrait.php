@@ -5,14 +5,14 @@ declare (strict_types=1);
  * @author: Doug Wilbourne (dougwilbourne@gmail.com)
  */
 
-namespace pvc\testingTraits\phpunit;
+namespace pvc\testingutils\testingTraits\phpunit;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use stdClass;
 
 trait PhpunitIteratorTrait
 {
-    public function mockIterator(MockObject $mock, array $items) : MockObject
+    public function mockIterator(MockObject $mock, array $items): MockObject
     {
         $iteratorData = new stdClass();
         $iteratorData->array = $items;

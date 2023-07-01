@@ -1,35 +1,42 @@
 <?php
-
-declare (strict_types=1);
 /**
+ * @package: pvc
  * @author: Doug Wilbourne (dougwilbourne@gmail.com)
+ * @version: 1.0
  */
 
-namespace tests\phpunit;
+namespace pvcTests\testingutils\testingTraits\mockery;
 
-use Iterator;
-use PHPUnit\Framework\MockObject\MockObject;
+use Mockery;
 use PHPUnit\Framework\TestCase;
-use pvc\testingTraits\phpunit\PhpunitIteratorTrait;
+use pvc\testingutils\testingTraits\mockery\MockeryIteratorTrait;
 
-class PhpunitIteratorTraitTest extends TestCase
+/**
+ * Class MockeryIteratorTraitTest
+ * @package tests
+ */
+class MockeryIteratorTraitTest extends Testcase
 {
-    use PhpunitIteratorTrait;
 
-    protected MockObject|Iterator $mock;
+    use MockeryIteratorTrait;
+
+    /** @phpstan-ignore-next-line */
+    protected $mock;
     protected array $testArray;
 
-    public function setUp() : void
+    public function setUp(): void
     {
-        // $this->mock = $this->getMockBuilder(['\StdClass', '\Iterator'])->getMock();
-	    $this->mock = $this->createMock(Iterator::class);
+        $this->mock = Mockery::mock('\StdClass', '\Iterator');
         $this->testArray = array('foo', 'bar', 'baz');
         $this->mock = $this->mockIterator($this->mock, $this->testArray);
     }
 
-    public function testIteration() : void
+    /**
+     * testIteration
+     * @covers MockeryIteratorTrait::mockIterator
+     */
+    public function testIteration(): void
     {
-
         // if you have a mocked object that needs to implement the iterator interface,
         // you can use the function mockIterator to add the proper expectations
 
@@ -45,9 +52,12 @@ class PhpunitIteratorTraitTest extends TestCase
         $this->assertSame($this->testArray, $arrayValues);
     }
 
-    public function testIteratorMethods() : void
+    /**
+     * testIteratorMethods
+     * @covers MockeryIteratorTrait::mockIterator
+     */
+    public function testIteratorMethods(): void
     {
-
         $this->assertTrue($this->mock->valid());
         $this->assertEquals(0, $this->mock->key());
         $this->assertEquals('foo', $this->mock->current());
@@ -59,6 +69,8 @@ class PhpunitIteratorTraitTest extends TestCase
         $this->mock->next();
         $this->assertEquals(2, $this->mock->key());
         $this->assertEquals('baz', $this->mock->current());
+
+        $this->assertEquals(3, $this->mock->count());
 
         $this->mock->next();
         $this->assertFalse($this->mock->valid());

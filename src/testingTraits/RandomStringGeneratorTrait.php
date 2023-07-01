@@ -5,7 +5,7 @@
  * @version: 1.0
  */
 
-namespace pvc\testingTraits;
+namespace pvc\testingutils\testingTraits;
 
 use RangeException;
 

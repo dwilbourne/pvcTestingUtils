@@ -5,7 +5,7 @@
  * @version: 1.0
  */
 
-namespace pvc\testingTraits\mockery;
+namespace pvc\testingutils\testingTraits\mockery;
 
 use Mockery;
 use Mockery\LegacyMockInterface;
@@ -13,7 +13,6 @@ use Mockery\LegacyMockInterface;
 /**
  * Trait MockeryIntegerValidatorTrait
  */
-
 trait MockeryNonNegativeIntegerValidatorTrait
 {
 

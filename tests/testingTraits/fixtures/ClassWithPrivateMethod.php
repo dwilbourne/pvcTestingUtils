@@ -4,13 +4,12 @@
  * @version 1.0
  */
 
-namespace tests\fixtures;
+namespace pvcTests\testingutils\testingTraits\fixtures;
 
 /**
  * Class ClassWithPrivateMethod
  * @package tests\fixtures
  */
-
 class ClassWithPrivateMethod
 {
 

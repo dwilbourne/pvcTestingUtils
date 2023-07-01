@@ -4,10 +4,10 @@
  * @version 1.0
  */
 
-namespace tests;
+namespace pvcTests\testingutils\testingTraits;
 
 use PHPUnit\Framework\TestCase;
-use pvc\testingTraits\RandomStringGeneratorTrait;
+use pvc\testingutils\testingTraits\RandomStringGeneratorTrait;
 
 class RandomStringGeneratorTraitTest extends TestCase
 {
@@ -17,20 +17,25 @@ class RandomStringGeneratorTraitTest extends TestCase
     protected int $iterations;
     protected int $seededStringLength;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->iterations = 10;
         $this->seededStringLength = 7;
     }
 
-    public function testSetGetKeySpace() : void
+    /**
+     * testSetGetKeySpace
+     * @covers RandomStringGeneratorTrait::getKeyspace
+     * @covers RandomStringGeneratorTrait::setKeyspace
+     */
+    public function testSetGetKeySpace(): void
     {
         $ks = 'abc123';
         $this->setKeyspace($ks);
         self::assertEquals($ks, $this->getKeyspace());
     }
 
-    public function createSeededArray() : array
+    public function createSeededArray(): array
     {
         $result = [];
         for ($i = 0; $i < $this->iterations; $i++) {
@@ -39,7 +44,12 @@ class RandomStringGeneratorTraitTest extends TestCase
         return $result;
     }
 
-    public function testRandomStringGenerator() : void
+
+    /**
+     * testRandomStringGenerator
+     * @covers RandomStringGeneratorTrait::randomString
+     */
+    public function testRandomStringGenerator(): void
     {
         $array = $this->createSeededArray();
         foreach ($array as $string) {
@@ -51,5 +61,15 @@ class RandomStringGeneratorTraitTest extends TestCase
             }
             self::assertTrue($result);
         }
+    }
+
+    /**
+     * testRandomStringGeneratorThrowsRangeExceptionWithSeededLengthLessThanOne
+     * @covers RandomStringGeneratorTrait::randomString
+     */
+    public function testRandomStringGeneratorThrowsRangeExceptionWithSeededLengthLessThanOne(): void
+    {
+        self::expectException(\RangeException::class);
+        $string = $this->randomString(0);
     }
 }

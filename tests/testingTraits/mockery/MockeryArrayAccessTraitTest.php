@@ -5,11 +5,12 @@
  * @version: 1.0
  */
 
-namespace tests\mockery;
+namespace pvcTests\testingutils\testingTraits\mockery;
 
 use Mockery;
 use PHPUnit\Framework\TestCase;
-use pvc\testingTraits\mockery\MockeryArrayAccessTrait;
+use pvc\testingutils\testingTraits\mockery\MockeryArrayAccessTrait;
+
 
 class MockeryArrayAccessTraitTest extends Testcase
 {
@@ -20,16 +21,19 @@ class MockeryArrayAccessTraitTest extends Testcase
     protected $mock;
     protected array $testArray;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         $this->mock = Mockery::mock('\StdClass', '\ArrayAccess');
         $this->testArray = array('a' => 'foo', 'b' => 'bar', 2 => 'baz');
         $this->mock = $this->mockArrayAccess($this->mock, $this->testArray);
     }
 
-    public function testArrayAccess() : void
+    /**
+     * testArrayAccess
+     * @covers MockeryArrayAccessTrait::mockArrayAccess
+     */
+    public function testArrayAccess(): void
     {
-
         // if you have a mocked object that needs to implement the ArrayAccess interface,
         // you can use the function mockArrayAccess to add the proper expectations
 
@@ -44,9 +48,12 @@ class MockeryArrayAccessTraitTest extends Testcase
         $this->assertEquals(9, $this->mock[2]);
     }
 
-    public function testArrayAccessMethods() : void
+    /**
+     * testArrayAccessMethods
+     * @covers MockeryArrayAccessTrait::mockArrayAccess
+     */
+    public function testArrayAccessMethods(): void
     {
-
         $this->assertTrue($this->mock->offsetExists('a'));
         $this->assertEquals('foo', $this->mock->offsetGet('a'));
 
