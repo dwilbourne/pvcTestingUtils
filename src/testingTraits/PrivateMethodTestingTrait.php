@@ -8,6 +8,8 @@
 namespace pvc\testingutils\testingTraits;
 
 use ReflectionClass;
+use ReflectionException;
+use ReflectionMethod;
 
 /**
  * Trait PrivateMethodTestingTrait
@@ -25,12 +27,13 @@ trait PrivateMethodTestingTrait
      * @param string $methodName
      * @param array $parameters
      * @return mixed
-     * @throws \ReflectionException
+     * @throws ReflectionException
      */
     public function invokeMethod(object &$object, string $methodName, array $parameters = [])
     {
         $reflection = new ReflectionClass(get_class($object));
         $method = $reflection->getMethod($methodName);
+        /** @var ReflectionMethod $method */
         $method->setAccessible(true);
         return $method->invokeArgs($object, $parameters);
     }

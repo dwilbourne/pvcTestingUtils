@@ -5,32 +5,31 @@
  * @version: 1.0
  */
 
-namespace pvcTests\testingutils\testingTraits\mockery;
+namespace pvcTests\testingutils\testingTraits;
 
-use Mockery;
+use ArrayAccess;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use pvc\testingutils\testingTraits\mockery\MockeryArrayAccessTrait;
+use pvc\testingutils\testingTraits\ArrayAccessTrait;
 
-
-class MockeryArrayAccessTraitTest extends Testcase
+class ArrayAccessTraitTest extends Testcase
 {
 
-    use MockeryArrayAccessTrait;
+    use ArrayAccessTrait;
 
-    /** @phpstan-ignore-next-line */
-    protected $mock;
+    protected MockObject|ArrayAccess $mock;
     protected array $testArray;
 
     public function setUp(): void
     {
-        $this->mock = Mockery::mock('\StdClass', '\ArrayAccess');
+        $this->mock = $this->createMock(ArrayAccess::class);
         $this->testArray = array('a' => 'foo', 'b' => 'bar', 2 => 'baz');
         $this->mock = $this->mockArrayAccess($this->mock, $this->testArray);
     }
 
     /**
      * testArrayAccess
-     * @covers MockeryArrayAccessTrait::mockArrayAccess
+     * @covers \pvc\testingutils\testingTraits\ArrayAccessTrait::mockArrayAccess
      */
     public function testArrayAccess(): void
     {
@@ -50,7 +49,7 @@ class MockeryArrayAccessTraitTest extends Testcase
 
     /**
      * testArrayAccessMethods
-     * @covers MockeryArrayAccessTrait::mockArrayAccess
+     * @covers \pvc\testingutils\testingTraits\ArrayAccessTrait::mockArrayAccess
      */
     public function testArrayAccessMethods(): void
     {

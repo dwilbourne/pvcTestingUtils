@@ -5,50 +5,49 @@
  * @version: 1.0
  */
 
-namespace pvc\testingutils\testingTraits\mockery;
+declare(strict_types=1);
 
-use Mockery\MockInterface;
+namespace pvc\testingutils\testingTraits;
+
+use PHPUnit\Framework\MockObject\MockObject;
 use stdClass;
 
 /**
- * Trait MockeryArrayAccessTrait
+ * Trait ArrayAccessTrait
  */
-trait MockeryArrayAccessTrait
+trait ArrayAccessTrait
 {
 
     /**
      * mockArrayAccess
-     * @param MockInterface $mock
+     * @param MockObject $mock
      * @param array $items
-     * @return MockInterface
+     * @return MockObject
      */
-    public function mockArrayAccess(MockInterface $mock, array $items): MockInterface
+    public function mockArrayAccess(MockObject $mock, array $items): MockObject
     {
         $arrayAccessData = new stdClass();
+        $arrayAccessData->array = $items;
 
-        foreach ($items as $key => $value) {
-            $arrayAccessData->array[$key] = $value;
-        }
-
-        $mock->shouldReceive('offsetExists')->andReturnUsing(
+        $mock->method('offsetExists')->willReturnCallback(
             function ($arg) use ($arrayAccessData) {
                 return isset($arrayAccessData->array[$arg]);
             }
         );
 
-        $mock->shouldReceive('offsetGet')->andReturnUsing(
+        $mock->method('offsetGet')->willReturnCallback(
             function ($arg) use ($arrayAccessData) {
                 return $arrayAccessData->array[$arg];
             }
         );
 
-        $mock->shouldReceive('offsetSet')->andReturnUsing(
+        $mock->method('offsetSet')->willReturnCallback(
             function ($arg, $value) use ($arrayAccessData) {
                 return $arrayAccessData->array[$arg] = $value;
             }
         );
 
-        $mock->shouldReceive('offsetUnset')->andReturnUsing(
+        $mock->method('offsetUnset')->willReturnCallback(
             function ($arg) use ($arrayAccessData) {
                 unset($arrayAccessData->array[$arg]);
             }

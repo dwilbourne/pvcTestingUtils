@@ -1,39 +1,34 @@
 <?php
+
+declare (strict_types=1);
 /**
- * @package: pvc
  * @author: Doug Wilbourne (dougwilbourne@gmail.com)
- * @version: 1.0
  */
 
-namespace pvcTests\testingutils\testingTraits\mockery;
+namespace pvcTests\testingutils\testingTraits;
 
-use Mockery;
+use Iterator;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use pvc\testingutils\testingTraits\mockery\MockeryIteratorTrait;
+use pvc\testingutils\testingTraits\IteratorTrait;
 
-/**
- * Class MockeryIteratorTraitTest
- * @package tests
- */
-class MockeryIteratorTraitTest extends Testcase
+class IteratorTraitTest extends TestCase
 {
+    use IteratorTrait;
 
-    use MockeryIteratorTrait;
-
-    /** @phpstan-ignore-next-line */
-    protected $mock;
+    protected MockObject|Iterator $mock;
     protected array $testArray;
 
     public function setUp(): void
     {
-        $this->mock = Mockery::mock('\StdClass', '\Iterator');
+        $this->mock = $this->createMock(Iterator::class);
         $this->testArray = array('foo', 'bar', 'baz');
         $this->mock = $this->mockIterator($this->mock, $this->testArray);
     }
 
     /**
      * testIteration
-     * @covers MockeryIteratorTrait::mockIterator
+     * @covers \pvc\testingutils\testingTraits\IteratorTrait::mockIterator
      */
     public function testIteration(): void
     {
@@ -54,7 +49,7 @@ class MockeryIteratorTraitTest extends Testcase
 
     /**
      * testIteratorMethods
-     * @covers MockeryIteratorTrait::mockIterator
+     * @covers \pvc\testingutils\testingTraits\IteratorTrait::mockIterator
      */
     public function testIteratorMethods(): void
     {
@@ -69,8 +64,6 @@ class MockeryIteratorTraitTest extends Testcase
         $this->mock->next();
         $this->assertEquals(2, $this->mock->key());
         $this->assertEquals('baz', $this->mock->current());
-
-        $this->assertEquals(3, $this->mock->count());
 
         $this->mock->next();
         $this->assertFalse($this->mock->valid());

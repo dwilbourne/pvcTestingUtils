@@ -18,7 +18,7 @@ class PrivateMethodTestingTraitTest extends TestCase
     /**
      * testPrivateMethod
      * @throws \ReflectionException
-     * @covers PrivateMethodTestingTrait::invokeMethod
+     * @covers \pvc\testingutils\testingTraits\PrivateMethodTestingTrait::invokeMethod
      */
     public function testPrivateMethod(): void
     {

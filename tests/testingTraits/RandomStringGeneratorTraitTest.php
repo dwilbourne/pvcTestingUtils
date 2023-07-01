@@ -25,8 +25,8 @@ class RandomStringGeneratorTraitTest extends TestCase
 
     /**
      * testSetGetKeySpace
-     * @covers RandomStringGeneratorTrait::getKeyspace
-     * @covers RandomStringGeneratorTrait::setKeyspace
+     * @covers \pvc\testingutils\testingTraits\RandomStringGeneratorTrait::getKeyspace
+     * @covers \pvc\testingutils\testingTraits\RandomStringGeneratorTrait::setKeyspace
      */
     public function testSetGetKeySpace(): void
     {
@@ -47,7 +47,7 @@ class RandomStringGeneratorTraitTest extends TestCase
 
     /**
      * testRandomStringGenerator
-     * @covers RandomStringGeneratorTrait::randomString
+     * @covers \pvc\testingutils\testingTraits\RandomStringGeneratorTrait::randomString
      */
     public function testRandomStringGenerator(): void
     {
