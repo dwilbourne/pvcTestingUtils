@@ -18,14 +18,15 @@
 			"pvcTests\\testingutils\\": "tests"
 		}
 	},
+	"minimum-stability": "dev",
 	"require": {
+		"pvc/interfaces": "*",
+		"phpunit/phpunit": "^9",
 		"ext-mbstring": "*"
 	},
 	"require-dev": {
 		"squizlabs/php_codesniffer": "*",
 		"friendsofphp/php-cs-fixer": "*",
-		"phpunit/phpunit": "^9",
-		"mockery/mockery": "*",
 		"phpstan/phpstan": "*"
 	}
 }
