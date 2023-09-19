@@ -65,7 +65,7 @@ class RandomStringGeneratorTraitTest extends TestCase
 
     /**
      * testRandomStringGeneratorThrowsRangeExceptionWithSeededLengthLessThanOne
-     * @covers RandomStringGeneratorTrait::randomString
+     * @covers \pvc\testingutils\testingTraits\RandomStringGeneratorTrait::randomString
      */
     public function testRandomStringGeneratorThrowsRangeExceptionWithSeededLengthLessThanOne(): void
     {
