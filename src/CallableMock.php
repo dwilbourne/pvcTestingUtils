@@ -7,6 +7,8 @@ declare(strict_types=1);
 
 namespace pvc\testingutils;
 
+use Closure;
+
 /**
  * Class CallableMock
  */
@@ -24,10 +26,33 @@ class CallableMock
      */
     protected $callable;
 
-    public function __construct()
+    /**
+     * @param callable|null $callable
+     */
+    public function __construct(callable $callable = null)
     {
-        $this->callable = function (...$params) {
-        };
+        $this->setCallable(
+            $callable ?? function (...$params) {
+        }
+        );
+    }
+
+    /**
+     * getCallable
+     * @return callable|Closure
+     */
+    public function getCallable(): callable|Closure
+    {
+        return $this->callable;
+    }
+
+    /**
+     * setCallable
+     * @param callable|Closure $callable
+     */
+    public function setCallable(callable|Closure $callable): void
+    {
+        $this->callable = $callable;
     }
 
     /**
