@@ -23,12 +23,12 @@ class IteratorTraitTest extends TestCase
     {
         $this->mock = $this->createMock(Iterator::class);
         $this->testArray = array('foo', 'bar', 'baz');
-        $this->mock = $this->mockIterator($this->mock, $this->testArray);
+        $this->mock = $this->makeMockIterableOverArray($this->mock, $this->testArray);
     }
 
     /**
      * testIteration
-     * @covers \pvc\testingutils\testingTraits\IteratorTrait::mockIterator
+     * @covers \pvc\testingutils\testingTraits\IteratorTrait::makeMockIterableOverArray
      */
     public function testIteration(): void
     {
@@ -49,7 +49,7 @@ class IteratorTraitTest extends TestCase
 
     /**
      * testIteratorMethods
-     * @covers \pvc\testingutils\testingTraits\IteratorTrait::mockIterator
+     * @covers \pvc\testingutils\testingTraits\IteratorTrait::makeMockIterableOverArray
      */
     public function testIteratorMethods(): void
     {

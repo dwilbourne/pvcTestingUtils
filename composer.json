@@ -1,6 +1,6 @@
 {
 	"name": "pvc/testingutils",
-	"description": "utilities for testing",
+	"description": "utilities and fixtures for testing",
 	"type": "project",
 	"authors": [
 		{
@@ -21,6 +21,7 @@
 	"minimum-stability": "dev",
 	"require": {
 		"pvc/interfaces": "*",
+		"pvc/struct": "*",
 		"phpunit/phpunit": "^9",
 		"ext-mbstring": "*"
 	},
