@@ -15,7 +15,7 @@ trait IteratorTrait
     public function makeMockIterableOverArray(
         MockObject $mock,
         array $items
-    ): MockObject {
+    ): void {
         $iteratorData = new stdClass();
         $iteratorData->array = $items;
         $iteratorData->position = 0;
@@ -49,7 +49,5 @@ trait IteratorTrait
                 return isset($iteratorData->array[$iteratorData->position]);
             }
         );
-
-        return $mock;
     }
 }
