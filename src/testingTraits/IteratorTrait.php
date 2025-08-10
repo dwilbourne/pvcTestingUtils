@@ -12,8 +12,10 @@ use stdClass;
 
 trait IteratorTrait
 {
-    public function makeMockIterableOverArray(MockObject $mock, array $items): MockObject
-    {
+    public function makeMockIterableOverArray(
+        MockObject $mock,
+        array $items
+    ): MockObject {
         $iteratorData = new stdClass();
         $iteratorData->array = $items;
         $iteratorData->position = 0;
