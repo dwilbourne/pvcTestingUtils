@@ -41,6 +41,7 @@ trait RandomStringGeneratorTrait
         }
         $pieces = [];
         $max = mb_strlen($this->getKeyspace(), '8bit') - 1;
+        assert($max > 0);
         for ($i = 0; $i < $length; ++$i) {
             $pieces []= $this->keySpace[random_int(0, $max)];
         }

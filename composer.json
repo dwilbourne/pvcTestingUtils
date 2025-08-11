@@ -10,7 +10,7 @@
 	],
 	"license": "MIT",
 	"config": {
-		"php": "^8.1"
+		"php": "8.4"
 	},
 	"autoload": {
 		"psr-4": {
@@ -22,12 +22,11 @@
 	"require": {
 		"pvc/interfaces": "*",
 		"pvc/struct": "*",
-		"phpunit/phpunit": "^9",
+		"phpunit/phpunit": "^10",
 		"ext-mbstring": "*"
 	},
 	"require-dev": {
-		"squizlabs/php_codesniffer": "*",
-		"friendsofphp/php-cs-fixer": "*",
-		"phpstan/phpstan": "*"
+		"phpstan/phpstan": "^2",
+		"rector/rector": "^2"
 	}
 }

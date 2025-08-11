@@ -12,6 +12,13 @@ use stdClass;
 
 trait IteratorTrait
 {
+    /**
+     * makeMockIterableOverArray
+     * @param  MockObject  $mock
+     * @param  array<mixed>  $items
+     *
+     * @return void
+     */
     public function makeMockIterableOverArray(
         MockObject $mock,
         array $items
@@ -21,33 +28,27 @@ trait IteratorTrait
         $iteratorData->position = 0;
 
         $mock->method('rewind')->with()->willReturnCallback(
-            function () use ($iteratorData) {
+            function () use ($iteratorData): void {
                 $iteratorData->position = 0;
             }
         );
 
         $mock->method('current')->with()->willReturnCallback(
-            function () use ($iteratorData) {
-                return $iteratorData->array[$iteratorData->position];
-            }
+            fn() => $iteratorData->array[$iteratorData->position]
         );
 
         $mock->method('key')->with()->willReturnCallback(
-            function () use ($iteratorData) {
-                return $iteratorData->position;
-            }
+            fn(): int => $iteratorData->position
         );
 
         $mock->method('next')->with()->willReturnCallback(
-            function () use ($iteratorData) {
+            function () use ($iteratorData): void {
                 $iteratorData->position++;
             }
         );
 
         $mock->method('valid')->with()->willReturnCallback(
-            function () use ($iteratorData) {
-                return isset($iteratorData->array[$iteratorData->position]);
-            }
+            fn(): bool => isset($iteratorData->array[$iteratorData->position])
         );
     }
 }

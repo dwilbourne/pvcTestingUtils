@@ -25,13 +25,13 @@ trait PrivateMethodTestingTrait
      * invokeMethod
      * @param object $object
      * @param string $methodName
-     * @param array $parameters
+     * @param array<mixed> $parameters
      * @return mixed
      * @throws ReflectionException
      */
-    public function invokeMethod(object &$object, string $methodName, array $parameters = [])
+    public function invokeMethod(object &$object, string $methodName, array $parameters = []): mixed
     {
-        $reflection = new ReflectionClass(get_class($object));
+        $reflection = new ReflectionClass($object::class);
         $method = $reflection->getMethod($methodName);
         /** @var ReflectionMethod $method */
         $method->setAccessible(true);

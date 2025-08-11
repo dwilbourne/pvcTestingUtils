@@ -21,7 +21,7 @@ trait ArrayAccessTrait
     /**
      * mockArrayAccess
      * @param MockObject $mock
-     * @param array $items
+     * @param array<mixed> $items
      * @return MockObject
      */
     public function mockArrayAccess(MockObject $mock, array $items): MockObject
@@ -30,25 +30,19 @@ trait ArrayAccessTrait
         $arrayAccessData->array = $items;
 
         $mock->method('offsetExists')->willReturnCallback(
-            function ($arg) use ($arrayAccessData) {
-                return isset($arrayAccessData->array[$arg]);
-            }
+            fn($arg): bool => isset($arrayAccessData->array[$arg])
         );
 
         $mock->method('offsetGet')->willReturnCallback(
-            function ($arg) use ($arrayAccessData) {
-                return $arrayAccessData->array[$arg];
-            }
+            fn($arg) => $arrayAccessData->array[$arg]
         );
 
         $mock->method('offsetSet')->willReturnCallback(
-            function ($arg, $value) use ($arrayAccessData) {
-                return $arrayAccessData->array[$arg] = $value;
-            }
+            fn($arg, $value) => $arrayAccessData->array[$arg] = $value
         );
 
         $mock->method('offsetUnset')->willReturnCallback(
-            function ($arg) use ($arrayAccessData) {
+            function ($arg) use ($arrayAccessData): void {
                 unset($arrayAccessData->array[$arg]);
             }
         );

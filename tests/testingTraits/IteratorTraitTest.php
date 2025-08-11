@@ -17,13 +17,17 @@ class IteratorTraitTest extends TestCase
     use IteratorTrait;
 
     protected MockObject|Iterator $mock;
+
+    /**
+     * @var array<string>
+     */
     protected array $testArray;
 
     public function setUp(): void
     {
         $this->mock = $this->createMock(Iterator::class);
         $this->testArray = array('foo', 'bar', 'baz');
-        $this->mock = $this->makeMockIterableOverArray($this->mock, $this->testArray);
+        $this->makeMockIterableOverArray($this->mock, $this->testArray);
     }
 
     /**

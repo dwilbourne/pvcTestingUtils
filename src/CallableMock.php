@@ -29,10 +29,10 @@ class CallableMock
     /**
      * @param callable|null $callable
      */
-    public function __construct(callable $callable = null)
+    public function __construct(?callable $callable = null)
     {
         $this->setCallable(
-            $callable ?? function (...$params) {
+            $callable ?? function (...$params): void {
         }
         );
     }
@@ -75,7 +75,7 @@ class CallableMock
      * wasCalled
      * @return bool
      */
-    public function wasCalled(int $times = null): bool
+    public function wasCalled(?int $times = null): bool
     {
         return (is_null($times) ? (count($this->invocations) > 0) : ($times == count($this->invocations)));
     }
