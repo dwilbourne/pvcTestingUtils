@@ -24,7 +24,7 @@ trait ArrayAccessTrait
      * @param array<mixed> $items
      * @return MockObject
      */
-    public function mockArrayAccess(MockObject $mock, array $items): MockObject
+    public function giveMockArrayAccess(MockObject $mock, array $items): void
     {
         $arrayAccessData = new stdClass();
         $arrayAccessData->array = $items;
@@ -46,7 +46,5 @@ trait ArrayAccessTrait
                 unset($arrayAccessData->array[$arg]);
             }
         );
-
-        return $mock;
     }
 }
