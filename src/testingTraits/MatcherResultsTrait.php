@@ -42,6 +42,6 @@ trait MatcherResultsTrait
             $key = $args[$index];
             return $results[$key];
         };
-        $mock->expects($matcher)->method($method)->willReturn($closure);
+        $mock->expects($matcher)->method($method)->willReturnCallback($closure);
     }
 }
