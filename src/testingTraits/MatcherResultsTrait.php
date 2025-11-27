@@ -39,6 +39,7 @@ trait MatcherResultsTrait
         $matcher = TestCase::exactly(count($results));
         $args = array_keys($results);
         $closure = function ($index) use ($args, $results) {
+            echo 'calling closure with ' . $index . PHP_EOL;
             $key = $args[$index];
             return $results[$key];
         };
