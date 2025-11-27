@@ -37,11 +37,8 @@ trait MatcherResultsTrait
     public function makeMockReturnFromResultsArray(MockObject $mock, string $method, array $results): void
     {
         $matcher = TestCase::exactly(count($results));
-        $args = array_keys($results);
-        $closure = function ($index) use ($args, $results) {
-            echo 'calling closure with ' . $index . PHP_EOL;
-            $key = $args[$index];
-            return $results[$key];
+        $closure = function ($index) use ($results) {
+            return $results[$index];
         };
         $mock->expects($matcher)->method($method)->willReturnCallback($closure);
     }
