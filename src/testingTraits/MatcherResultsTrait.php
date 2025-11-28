@@ -21,7 +21,8 @@ trait MatcherResultsTrait
     {
         $matcher = TestCase::exactly(count($results));
         $closure = function () use ($matcher, $results) {
-            return $results[$matcher->numberOfInvocations() - 1];
+            $resultValues = array_values($results);
+            return $resultValues[$matcher->numberOfInvocations() - 1];
         };
         $mock->expects($matcher)->method($method)->willReturnCallback($closure);
     }
