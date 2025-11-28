@@ -24,7 +24,7 @@ class ArrayAccessTraitTest extends Testcase
     {
         $this->mock = $this->createMock(ArrayAccess::class);
         $this->testArray = array('a' => 'foo', 'b' => 'bar', 2 => 'baz');
-        $this->mock = $this->mockArrayAccess($this->mock, $this->testArray);
+        $this->giveMockArrayAccess($this->mock, $this->testArray);
     }
 
     /**
