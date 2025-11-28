@@ -35,9 +35,8 @@ trait MatcherResultsTrait
      *
      * @return void
      */
-    public function makeMockReturnFromResultsArray(MockObject $mock, string $method, array $results): void
+    public function makeMockReturnFromResultsArray(MockObject $mock, InvocationOrder $matcher, string $method, array $results): void
     {
-        $matcher = TestCase::exactly(count($results));
         $closure = function ($index) use ($results) {
             return $results[$index];
         };

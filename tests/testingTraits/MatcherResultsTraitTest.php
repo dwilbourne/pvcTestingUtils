@@ -46,8 +46,9 @@ class MatcherResultsTraitTest extends TestCase
         $indexC = 'bazId';
 
         $testArray = array($indexA => 'foo', $indexB => 'bar', $indexC => 'baz');
+        $matcher = $this->exactly(count($testArray));
         $classWithTestMethod = new ClassWithTestMethod($testArray);
-        $this->makeMockReturnFromResultsArray($mock, 'testMethod', $testArray);
+        $this->makeMockReturnFromResultsArray($mock, $matcher, 'testMethod', $testArray);
 
         self::assertSame($classWithTestMethod->testMethod($indexC), $mock->testMethod($indexC));
         self::assertSame($classWithTestMethod->testMethod($indexA), $mock->testMethod($indexA));
