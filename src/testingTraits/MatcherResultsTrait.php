@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace pvc\testingutils\testingTraits;
 
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\MockObject\Rule\InvocationOrder;
 use PHPUnit\Framework\TestCase;
 
 trait MatcherResultsTrait
@@ -17,9 +18,8 @@ trait MatcherResultsTrait
      *
      * @return void
      */
-    public function makeMockReturnByInvocationNumber(MockObject $mock, string $method, array $results): void
+    public function makeMockReturnByInvocationNumber(MockObject $mock, InvocationOrder $matcher, string $method, array $results): void
     {
-        $matcher = TestCase::exactly(count($results));
         $closure = function () use ($matcher, $results) {
             $resultValues = array_values($results);
             return $resultValues[$matcher->numberOfInvocations() - 1];

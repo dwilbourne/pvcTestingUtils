@@ -7,18 +7,12 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use pvc\testingutils\testingTraits\MatcherResultsTrait;
 use pvcTests\testingutils\testingTraits\fixtures\ClassWithTestMethod;
+use pvcTests\testingutils\testingTraits\fixtures\Factory;
+use stdClass;
 
 class MatcherResultsTraitTest extends TestCase
 {
     use MatcherResultsTrait;
-    protected MockObject&ClassWithTestMethod $mock;
-
-    protected ClassWithTestMethod $classWithTestMethod;
-
-    public function setUp(): void
-    {
-        $this->mock = $this->createMock(ClassWithTestMethod::class);
-    }
 
     /**
      * testInvocationNumbers
@@ -27,12 +21,14 @@ class MatcherResultsTraitTest extends TestCase
      */
     public function testInvocationNumbers(): void
     {
+        $mock = $this->createMock(ClassWithTestMethod::class);
         $testArray = array('foo', 'bar', 'baz');
         $classWithTestMethod = new ClassWithTestMethod($testArray);
-        $this->makeMockReturnByInvocationNumber($this->mock, 'testMethod', $testArray);
+        $matcher = $this->exactly(count($testArray));
+        $this->makeMockReturnByInvocationNumber($mock, $matcher, 'testMethod', $testArray);
 
         for ($i = 0; $i < count($testArray); $i++) {
-            self::assertSame($classWithTestMethod->testMethod($i), $this->mock->testMethod($i));
+            self::assertSame($classWithTestMethod->testMethod($i), $mock->testMethod($i));
         }
     }
 
@@ -43,17 +39,19 @@ class MatcherResultsTraitTest extends TestCase
      */
     public function testMockReturnFromResultsArray(): void
     {
+        $mock = $this->createMock(ClassWithTestMethod::class);
+
         $indexA = 'fooId';
         $indexB = 'barId';
         $indexC = 'bazId';
 
         $testArray = array($indexA => 'foo', $indexB => 'bar', $indexC => 'baz');
         $classWithTestMethod = new ClassWithTestMethod($testArray);
-        $this->makeMockReturnFromResultsArray($this->mock, 'testMethod', $testArray);
+        $this->makeMockReturnFromResultsArray($mock, 'testMethod', $testArray);
 
-        self::assertSame($classWithTestMethod->testMethod($indexC), $this->mock->testMethod($indexC));
-        self::assertSame($classWithTestMethod->testMethod($indexA), $this->mock->testMethod($indexA));
-        self::assertSame($classWithTestMethod->testMethod($indexB), $this->mock->testMethod($indexB));
+        self::assertSame($classWithTestMethod->testMethod($indexC), $mock->testMethod($indexC));
+        self::assertSame($classWithTestMethod->testMethod($indexA), $mock->testMethod($indexA));
+        self::assertSame($classWithTestMethod->testMethod($indexB), $mock->testMethod($indexB));
     }
 
 }
