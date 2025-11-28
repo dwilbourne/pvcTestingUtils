@@ -11,7 +11,7 @@ use pvcTests\testingutils\testingTraits\fixtures\ClassWithTestMethod;
 class MatcherResultsTraitTest extends TestCase
 {
     use MatcherResultsTrait;
-    protected MockObject $mock;
+    protected MockObject&ClassWithTestMethod $mock;
 
     protected ClassWithTestMethod $classWithTestMethod;
 
